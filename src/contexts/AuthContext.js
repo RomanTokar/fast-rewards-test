@@ -32,24 +32,15 @@ const AuthProvider = ({children}) => {
         };
 
         updateProfileData(user.user.uid, defaultData);
-      })
-      .catch(e => {
-        console.log(e);
       });
   };
 
   const signIn = (email, password) => {
-    return auth.signInWithEmailAndPassword(email, password)
-      .catch((e) => {
-        console.log(e);
-      });
+    return auth.signInWithEmailAndPassword(email, password);
   };
 
   const signOut = () => {
     return auth.signOut()
-      .catch((e) => {
-        console.log(e);
-      });
   };
 
   return (
