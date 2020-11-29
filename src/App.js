@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import {Redirect, Route, Switch} from 'react-router-dom';
+import Register from './pages/Register';
+import Login from './pages/Login';
+import Main from './pages/Main';
+import {useAuth} from './contexts/AuthContext';
 
 function App() {
+  const {isReady, currentUser} = useAuth();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    isReady
+      ? currentUser
+      ? <Switch>
+        <Route path={'/'} component={Main}/>
+        <Redirect to={'/'}/>
+      </Switch>
+      : <Switch>
+        <Route path={'/register'} component={Register}/>
+        <Route path={'/login'} component={Login}/>
+        <Redirect to={'/login'}/>
+      </Switch>
+      : ''
   );
 }
 
